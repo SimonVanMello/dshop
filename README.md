@@ -15,7 +15,7 @@ This project is an online shop built with React for the frontend and Spring Boot
 
 ## 🛠️ Technologies Used
 
-- **Frontend**: React
+- **Frontend**: React + TypeScript
 - **Backend**: Spring Boot
-- **Database**: [Your choice of database technology, e.g., MySQL, PostgreSQL]
+- **Database**: MySQL
 - **Authentication**: Google Sign-In
