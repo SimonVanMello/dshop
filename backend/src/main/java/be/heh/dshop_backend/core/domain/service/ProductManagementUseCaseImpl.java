@@ -11,6 +11,7 @@ public class ProductManagementUseCaseImpl implements ProductManagementUseCase {
     public void modifyProduct(String product){
 
     }
+
     public void removeProduct(int productId){
 
     }
