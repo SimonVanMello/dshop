@@ -16,17 +16,22 @@ public class Product {
     @Getter
     @Setter
     private String img;
+    @Getter
+    @Setter
+    private int quantity;
 
-    public Product(int id, String name, float price, String img){
+    public Product(int id, String name, float price, String img, int quantity){
         this.id = id;
         this.name = name;
         this.price = price;
         this.img = img;
+        this.quantity = quantity;
     }
 
-    public Product(String name, float price, String img){
+    public Product(String name, float price, String img, int quantity){
         this.name = name;
         this.price = price;
         this.img = img;
+        this.quantity = quantity;
     }
 }
