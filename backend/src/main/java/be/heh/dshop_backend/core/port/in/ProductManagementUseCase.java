@@ -1,7 +1,7 @@
 package be.heh.dshop_backend.core.port.in;
 
 public interface ProductManagementUseCase {
-    public void addProduct(String product);
-    public void modifyProduct(String product);
-    public void removeProduct(int productId);
+    public void addProduct(ProductManagementAddCommand command);
+    public void modifyProduct(ProductManagementModifyCommand command);
+    public void removeProduct(ProductManagementRemoveCommand command);
 }
