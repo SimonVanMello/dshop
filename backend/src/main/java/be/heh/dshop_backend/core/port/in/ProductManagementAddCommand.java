@@ -11,7 +11,7 @@ public class ProductManagementAddCommand {
     @NotNull private final String name;
 
     @Getter
-    @NotNull @Min(0) private final float price;
+    @NotNull @Min(0) private final double price;
 
     @Getter
     @NotNull @Min(1) private final int quantity;
@@ -19,7 +19,7 @@ public class ProductManagementAddCommand {
     @Getter
     @NotNull private final byte[] image;
 
-    public ProductManagementAddCommand(String name, float price, int quantity, byte[] image){
+    public ProductManagementAddCommand(String name, double price, int quantity, byte[] image){
         this.name = name;
         this.price = price;
         this.quantity = quantity;
