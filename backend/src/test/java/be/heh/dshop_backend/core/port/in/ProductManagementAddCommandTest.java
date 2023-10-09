@@ -9,7 +9,8 @@ public class ProductManagementAddCommandTest {
     @Test
     public void emptyNameShouldThrowConstraintViolationException(){
         ConstraintViolationException exception = assertThrows(
-                ConstraintViolationException.class, () -> new ProductManagementAddCommand(
+                ConstraintViolationException.class,
+                () -> new ProductManagementAddCommand(
                         "",
                         10.5,
                         1,
@@ -23,7 +24,8 @@ public class ProductManagementAddCommandTest {
     @Test
     public void invalidPriceShouldThrowConstraintViolationException(){
         ConstraintViolationException exception = assertThrows(
-                ConstraintViolationException.class, () -> new ProductManagementAddCommand(
+                ConstraintViolationException.class,
+                () -> new ProductManagementAddCommand(
                         "productName",
                         -10.5,
                         1,
@@ -37,7 +39,8 @@ public class ProductManagementAddCommandTest {
     @Test
     public void invalidQuantityShouldThrowConstraintViolationException(){
         ConstraintViolationException exception = assertThrows(
-                ConstraintViolationException.class, () -> new ProductManagementAddCommand(
+                ConstraintViolationException.class,
+                () -> new ProductManagementAddCommand(
                         "productName",
                         10.5,
                         -1,
