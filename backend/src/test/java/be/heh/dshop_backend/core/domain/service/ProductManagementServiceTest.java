@@ -3,7 +3,6 @@ package be.heh.dshop_backend.core.domain.service;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.out.ProductManagementOut;
-import be.heh.dshop_backend.core.port.out.ProductManagementOutMock;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
