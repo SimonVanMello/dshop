@@ -33,6 +33,6 @@ public class ProductManagementService implements ProductManagementUseCase {
 
     @Override
     public void removeProduct(ProductManagementRemoveCommand command){
-
+        this.out.removeProduct(command.getId());
     }
 }
