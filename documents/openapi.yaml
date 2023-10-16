@@ -1,0 +1,192 @@
+openapi: 3.0.0
+info:
+  title: Swagger Petstore
+  description: |
+    This is a sample Petstore server.  You can find
+    out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- url: http://localhost:8080/SimonVanMello/dshop/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: ProductManagement
+paths:
+  /product:
+    get:
+      tags:
+      - ProductManagement
+      description: Returns all products stored in the database
+      operationId: productGET
+      responses:
+        "200":
+          description: Returns all the products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                x-content-type: application/json
+      x-swagger-router-controller: ProductManagement
+
+    put:
+      tags:
+      - ProductManagement
+      description: Modify an existing product in the database
+      operationId: productPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyProductInfo'
+      responses:
+        "200":
+          description: Successfully modified the product
+      x-swagger-router-controller: ProductManagement
+
+    post:
+      tags:
+      - ProductManagement
+      description: Add a new product in the database
+      operationId: productPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductInfo'
+      responses:
+        "200":
+          description: Successfully added new product
+      x-swagger-router-controller: ProductManagement
+  
+  /product/{id}:
+    delete:
+      tags:
+      - ProductManagement
+      description: Delete a product in the database
+      operationId: productIdDELETE
+      parameters:
+      - name: id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: Successfully deleted the product from the database
+      x-swagger-router-controller: ProductManagement
+components:
+  schemas:
+    Product:
+      required:
+      - id
+      - img
+      - name
+      - price
+      - quantity
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        img:
+          type: string
+          example: 
+        quantity:
+          type: integer
+          format: int32
+      example:
+        img: https://dummyimage.com/300/09f/fff.png
+        quantity: 12
+        price: 4.99 
+        name: productName
+        id: 1
+
+    AddProductInfo:
+      required:
+      - img
+      - name
+      - price
+      - quantity
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          minimum: 0
+          type: number
+          format: double
+        img:
+          type: string
+          format: uri
+        quantity:
+          type: integer
+          format: int32
+      example:
+        img: https://dummyimage.com/300/09f/fff.png
+        name: 'productName'
+        price: 4.99
+        quantity: 12
+
+    ModifyProductInfo:
+      required:
+      - id
+      - img
+      - name
+      - price
+      - quantity
+      type: object
+      properties:
+        id:
+          minimum: 1
+          type: integer
+          format: int32
+        name:
+          type: string
+        price:
+          minimum: 0
+          type: number
+          format: double
+        img:
+          type: string
+          format: uri
+        quantity:
+          type: integer
+          format: int32
+      example:
+        id: 1
+        name: productName
+        price: 4.99
+        img: https://dummyimage.com/300/09f/fff.png
+        quantity: 12
+
+    DeleteProductInfo:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          minimum: 0
+          type: integer
+          format: int32
+      example:
+        id: 1
