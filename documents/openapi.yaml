@@ -110,7 +110,6 @@ components:
           format: double
         img:
           type: string
-          example: 
         quantity:
           type: integer
           format: int32
