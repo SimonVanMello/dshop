@@ -1,0 +1,10 @@
+#AddProductPageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 42px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
