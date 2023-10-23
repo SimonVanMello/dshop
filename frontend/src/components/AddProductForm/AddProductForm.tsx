@@ -1,26 +1,28 @@
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import GlobalContext from '../../store/global-context.ts';
 
 import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
 
 import './AddProductForm.css';
 
-const AddProductForm = () : JSX.Element => {
+const AddProductForm = (): JSX.Element => {
     const [validated, setValidated] = useState(false);
     const [showAddedProductAlert, setShowAddedProductAlert] = useState(false);
 
-    const handleSubmit = (event: any) => {
+    const {serverUrl} = useContext(GlobalContext);
+
+    const handleSubmit = (event: any): void => {
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
         } else{
-            event.preventDefault();
             const formData = new FormData(event.target);
-            const formDataObj = Object.fromEntries(formData.entries())
+            const formDataObj = Object.fromEntries(formData.entries());
             console.log(formDataObj);
-            fetch('https://virtserver.swaggerhub.com/SimonVanMello/dshop/1.0.0/product', {
+            fetch(`${serverUrl}/product`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
