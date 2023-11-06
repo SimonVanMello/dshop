@@ -19,7 +19,7 @@ public class ProductManagementRemoveCommandTest {
     @Test
     public void validIdShouldNotThrowException(){
         assertDoesNotThrow(
-                () -> new ProductManagementRemoveCommand(1)
+            () -> new ProductManagementRemoveCommand(1)
         );
     }
 }
