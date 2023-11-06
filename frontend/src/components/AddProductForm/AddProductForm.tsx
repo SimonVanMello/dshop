@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import GlobalContext from '../../store/global-context.ts';
-
 import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
 
 import './AddProductForm.css';
+
 
 const AddProductForm = (): JSX.Element => {
     const [validated, setValidated] = useState(false);
@@ -18,24 +18,29 @@ const AddProductForm = (): JSX.Element => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
-        } else{
-            const formData = new FormData(event.target);
-            const formDataObj = Object.fromEntries(formData.entries());
-            console.log(formDataObj);
-            fetch(`${serverUrl}/product`, {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(formDataObj)
-            }).then(response => {
-                console.log(response);
-                if (response.status == 200){
-                    setShowAddedProductAlert(true);
-                }
-            })
+            return;
         }
+
+        const formData = new FormData(event.target);
+        formData.delete("img");
+        const imgInput: HTMLInputElement = document.getElementById("AddProductForm.img") as HTMLInputElement;
+        formData.append("img", imgInput.files[0]);
+        console.log(formData);
+        
+
+        fetch(`${serverUrl}/product`, {
+            method: 'post',
+            headers: {
+                'Accept': '*/*',
+            },
+            body: formData
+        }).then(response => {
+            console.log(response);
+            if (response.status == 201){
+                setShowAddedProductAlert(true);
+            }
+        })
+        
         setValidated(true);
     };
 
