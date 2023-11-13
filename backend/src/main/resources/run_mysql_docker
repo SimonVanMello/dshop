@@ -1,0 +1,8 @@
+docker run \
+	--detach \
+	--name dshop-mariadb \
+	--env MARIADB_ROOT_PASSWORD=root \
+	--env MARIADB_DATABASE=Dshop \
+	--env MARIADB_USER=springuser \
+	--env MARIADB_PASSWORD=root \
+	mariadb:latest

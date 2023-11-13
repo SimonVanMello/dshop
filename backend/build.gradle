@@ -32,6 +32,8 @@ dependencies {
     implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
     testImplementation "org.mockito:mockito-core:4.2.0"
     implementation 'com.cloudinary:cloudinary-http44:1.27.0'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jdbc', version: '2.7.3'
 }
 
 tasks.named('test') {

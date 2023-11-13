@@ -5,7 +5,6 @@ import com.cloudinary.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
 import com.cloudinary.utils.ObjectUtils;
 
-import java.io.File;
 import java.util.Map;
 
 @UseCase
