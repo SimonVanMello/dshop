@@ -28,7 +28,8 @@ public class ProductManagementService implements ProductManagementUseCase {
             command.getName(),
             command.getPrice(),
             imgUrl,
-            command.getQuantity()
+            command.getQuantity(),
+            command.getImage()
         );
         this.productManagementPersistenceOut.addProduct(product);
 

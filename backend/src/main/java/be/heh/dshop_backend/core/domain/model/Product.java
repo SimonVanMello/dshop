@@ -33,11 +33,12 @@ public class Product {
     }
 
     // Add new product constructor
-    public Product(String name, double price, String imgUrl, int quantity){
+    public Product(String name, double price, String imgUrl, int quantity, byte[] img){
         this.name = name;
         this.price = price;
         this.imgUrl = imgUrl;
         this.quantity = quantity;
+        this.img = img;
     }
 
     // Get products constructor
