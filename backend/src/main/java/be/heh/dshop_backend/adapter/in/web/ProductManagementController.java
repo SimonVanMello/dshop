@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebAdapter
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin
+@CrossOrigin
 public class ProductManagementController {
    private final ProductManagementPersistenceOut productManagementPersistenceOut;
    private final ProductManagementCloudinaryOut productManagementCloudinaryOut;

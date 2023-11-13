@@ -21,7 +21,7 @@ public class ProductManagementCloudinaryAdapter implements ProductManagementClou
             Map uploadResult = cloudinary.uploader().upload(image, ObjectUtils.emptyMap());
             return uploadResult.get("secure_url").toString();
         } catch (Exception e){
-            return "Error";
+            return "Error uploading the image";
         }
     }
 }

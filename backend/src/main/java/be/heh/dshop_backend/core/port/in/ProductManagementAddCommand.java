@@ -26,7 +26,7 @@ public class ProductManagementAddCommand {
 
     public ProductManagementAddCommand(String name, double price, int quantity, byte[] image){
         this.name = name;
-        this.price = price;
+        this.price = Math.round(price*100)/100.00;
         this.quantity = quantity;
         this.image = image;
         validate(this);

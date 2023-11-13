@@ -18,8 +18,10 @@ countdown() {
     done
 }
 
+# Docker container needs time to initialize
 countdown 10
 
+# Load the default database config into the created container 
 docker exec \
 	-i dshop-mariadb \
 	sh -c 'exec mariadb -uspringuser -proot Dshop' < ./init.sql

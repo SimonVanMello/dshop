@@ -48,7 +48,7 @@ public class ProductManagementServiceTest {
         Product p = pms.addProduct(command);
         verify(productManagementCloudinaryOutMock).saveImage(p.getImg());
     }
-
+    
     @Test
     public void removeProductShouldCallRemoveProductInProductManagementOut(){
         ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
