@@ -8,7 +8,7 @@ import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 public class ProductManagementPersistenceAdapter implements ProductManagementPersistenceOut {
     @Override
     public void addProduct(Product product){
-
+        System.out.println(product.getImgUrl());
     }
 
     @Override

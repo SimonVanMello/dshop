@@ -36,7 +36,7 @@ public class Product {
     public Product(String name, double price, String imgUrl, int quantity){
         this.name = name;
         this.price = price;
-        this.img = img;
+        this.imgUrl = imgUrl;
         this.quantity = quantity;
     }
 

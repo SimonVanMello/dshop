@@ -31,6 +31,7 @@ dependencies {
     implementation 'javax.enterprise:javax.enterprise-api:9.0.0'
     implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
     testImplementation "org.mockito:mockito-core:4.2.0"
+    implementation 'com.cloudinary:cloudinary-http44:1.27.0'
 }
 
 tasks.named('test') {
