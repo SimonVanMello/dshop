@@ -5,24 +5,33 @@ import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementModifyCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementUseCase;
-import be.heh.dshop_backend.core.port.out.ProductManagementOut;
+import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
+import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 
 public class ProductManagementService implements ProductManagementUseCase {
-    private final ProductManagementOut out;
+    private final ProductManagementPersistenceOut productManagementPersistenceOut;
+    private final ProductManagementCloudinaryOut productManagementCloudinaryOut;
 
-    public ProductManagementService(ProductManagementOut out){
-        this.out = out;
+
+    public ProductManagementService(
+            ProductManagementPersistenceOut productManagementPersistenceOut,
+            ProductManagementCloudinaryOut productManagementCloudinaryOut
+    ){
+        this.productManagementPersistenceOut = productManagementPersistenceOut;
+        this.productManagementCloudinaryOut = productManagementCloudinaryOut;
     }
 
     @Override
     public Product addProduct(ProductManagementAddCommand command){
+        String imgUrl = this.productManagementCloudinaryOut.saveImage(command.getImage());
         Product product = new Product(
             command.getName(),
             command.getPrice(),
-            command.getImage(),
+            imgUrl,
             command.getQuantity()
         );
-        this.out.addProduct(product);
+        this.productManagementPersistenceOut.addProduct(product);
+
         return product;
     }
 
@@ -33,6 +42,6 @@ public class ProductManagementService implements ProductManagementUseCase {
 
     @Override
     public void removeProduct(ProductManagementRemoveCommand command){
-        this.out.removeProduct(command.getId());
+        this.productManagementPersistenceOut.removeProduct(command.getId());
     }
 }

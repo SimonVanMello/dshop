@@ -3,15 +3,20 @@ package be.heh.dshop_backend.core.domain.service;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
-import be.heh.dshop_backend.core.port.out.ProductManagementOut;
+import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
+import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 public class ProductManagementServiceTest {
     @Test
     public void addProductShouldCallAddProductInProductManagementOut(){
-        ProductManagementOut mock = mock(ProductManagementOut.class);
-        ProductManagementService pms = new ProductManagementService(mock);
+        ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
+        ProductManagementCloudinaryOut productManagementCloudinaryOutMock = mock(ProductManagementCloudinaryOut.class);
+        ProductManagementService pms = new ProductManagementService(
+                productManagementPersistenceOutMock,
+                productManagementCloudinaryOutMock
+        );
 
         ProductManagementAddCommand command = mock(ProductManagementAddCommand.class);
         when(command.getName()).thenReturn("productName");
@@ -20,19 +25,23 @@ public class ProductManagementServiceTest {
         when(command.getImage()).thenReturn("fakeImage".getBytes());
 
         Product p = pms.addProduct(command);
-        verify(mock).addProduct(p);
+        verify(productManagementPersistenceOutMock).addProduct(p);
     }
 
     @Test
     public void removeProductShouldCallRemoveProductInProductManagementOut(){
-        ProductManagementOut mock = mock(ProductManagementOut.class);
-        ProductManagementService pms = new ProductManagementService(mock);
+        ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
+        ProductManagementCloudinaryOut productManagementCloudinaryOutMock = mock(ProductManagementCloudinaryOut.class);
+        ProductManagementService pms = new ProductManagementService(
+                productManagementPersistenceOutMock,
+                productManagementCloudinaryOutMock
+        );
 
         final int fakeId = 72917300;
         ProductManagementRemoveCommand command = mock(ProductManagementRemoveCommand.class);
         when(command.getId()).thenReturn(fakeId);
 
         pms.removeProduct(command);
-        verify(mock).removeProduct(fakeId);
+        verify(productManagementPersistenceOutMock).removeProduct(fakeId);
     }
 }

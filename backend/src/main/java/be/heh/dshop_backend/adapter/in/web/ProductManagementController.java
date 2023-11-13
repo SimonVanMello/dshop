@@ -1,10 +1,10 @@
 package be.heh.dshop_backend.adapter.in.web;
 import be.heh.dshop_backend.common.WebAdapter;
-import be.heh.dshop_backend.core.domain.model.Product;
+import be.heh.dshop_backend.core.domain.service.ProductManagementService;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
-import be.heh.dshop_backend.core.port.in.ProductManagementUseCase;
+import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
+import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +18,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 //@CrossOrigin
 public class ProductManagementController {
+   private final ProductManagementPersistenceOut productManagementPersistenceOut;
+   private final ProductManagementCloudinaryOut productManagementCloudinaryOut;
+
     @CrossOrigin(origins="*")
     @PostMapping(path="/product", consumes="multipart/form-data", produces="application/json")
     @ResponseBody
@@ -27,11 +30,17 @@ public class ProductManagementController {
             @RequestParam(value="price") double price,
             @RequestParam(value="quantity") int quantity) throws IOException {
         ProductManagementAddCommand productManagementAddCommand = new ProductManagementAddCommand(
-                name,
-                price,
-                quantity,
-                img.getBytes()
+            name,
+            price,
+            quantity,
+            img.getBytes()
         );
+
+        ProductManagementService productManagementService = new ProductManagementService(
+                productManagementPersistenceOut,
+                productManagementCloudinaryOut
+        );
+        productManagementService.addProduct(productManagementAddCommand);
         return new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
     }
 }
