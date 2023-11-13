@@ -8,3 +8,18 @@ docker run \
 	--env MARIADB_USER=springuser \
 	--env MARIADB_PASSWORD=root \
 	mariadb:latest
+
+countdown() {
+    start="$(( $(date '+%s') + $1))"
+    while [ $start -ge $(date +%s) ]; do
+        time="$(( $start - $(date +%s) ))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 0.1
+    done
+}
+
+countdown 10
+
+docker exec \
+	-i dshop-mariadb \
+	sh -c 'exec mariadb -uspringuser -proot Dshop' < ./init.sql
