@@ -6,9 +6,13 @@ import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 
 @UseCase
 public class ProductManagementPersistenceAdapter implements ProductManagementPersistenceOut {
+    private ProductManagementRepository productManagementRepository;
+    public ProductManagementPersistenceAdapter(ProductManagementRepository productManagementRepository){
+        this.productManagementRepository =  productManagementRepository;
+    }
     @Override
     public void addProduct(Product product){
-        System.out.println(product.getImgUrl());
+        productManagementRepository.storeProduct(product);
     }
 
     @Override

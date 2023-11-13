@@ -1,5 +1,7 @@
 docker run \
 	--detach \
+	--network=bridge \
+	-p 3306:3306 \
 	--name dshop-mariadb \
 	--env MARIADB_ROOT_PASSWORD=root \
 	--env MARIADB_DATABASE=Dshop \
