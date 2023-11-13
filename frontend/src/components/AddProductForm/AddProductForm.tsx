@@ -26,7 +26,7 @@ const AddProductForm = (): JSX.Element => {
         const imgInput: HTMLInputElement = document.getElementById("AddProductForm.img") as HTMLInputElement;
         formData.append("img", imgInput.files[0]);
         console.log(formData);
-        
+
 
         fetch(`${serverUrl}/product`, {
             method: 'post',
@@ -55,7 +55,7 @@ const AddProductForm = (): JSX.Element => {
 
                 <Form.Group className="mb-3" controlId="AddProductForm.price">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control type="number" placeholder="Enter price" min="0" name="price" required />
+                    <Form.Control type="number" step="0.01" placeholder="Enter price" min="0" name="price" required />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="AddProductForm.quantity">
