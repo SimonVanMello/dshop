@@ -2,6 +2,7 @@ package be.heh.dshop_backend.adapter.in.web;
 import be.heh.dshop_backend.common.WebAdapter;
 import be.heh.dshop_backend.core.domain.service.ProductManagementService;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
+import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
 import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +36,26 @@ public class ProductManagementController {
             quantity,
             img.getBytes()
         );
-
-        ProductManagementService productManagementService = new ProductManagementService(
+        final ProductManagementService productManagementService = new ProductManagementService(
                 productManagementPersistenceOut,
                 productManagementCloudinaryOut
         );
+
         productManagementService.addProduct(productManagementAddCommand);
         return new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
+    }
+
+    @CrossOrigin(origins="*")
+    @DeleteMapping(path="/product/{id}", produces="application/json")
+    @ResponseBody
+    public ResponseEntity<String> removeProduct(@PathVariable int id) throws IOException {
+        ProductManagementRemoveCommand productManagementRemoveCommand = new ProductManagementRemoveCommand(id);
+        final ProductManagementService productManagementService = new ProductManagementService(
+                productManagementPersistenceOut,
+                productManagementCloudinaryOut
+        );
+
+        productManagementService.removeProduct(productManagementRemoveCommand);
+        return new ResponseEntity<String>("Successfully removed", HttpStatus.OK);
     }
 }

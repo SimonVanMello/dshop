@@ -5,5 +5,5 @@ import be.heh.dshop_backend.core.domain.model.Product;
 public interface ProductManagementPersistenceOut {
     void addProduct(Product product);
     void modifyProduct(Product product);
-    void removeProduct(int id);
+    String removeProduct(int id);
 }

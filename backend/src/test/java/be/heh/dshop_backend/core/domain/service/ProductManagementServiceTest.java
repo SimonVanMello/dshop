@@ -1,7 +1,6 @@
 package be.heh.dshop_backend.core.domain.service;
 
 import be.heh.dshop_backend.adapter.out.persistence.ProductManagementPersistenceAdapter;
-import be.heh.dshop_backend.adapter.out.persistence.ProductManagementRepository;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
@@ -58,7 +57,7 @@ public class ProductManagementServiceTest {
                 productManagementCloudinaryOutMock
         );
 
-        final int fakeId = 72917300;
+        final int fakeId = 1;
         ProductManagementRemoveCommand command = mock(ProductManagementRemoveCommand.class);
         when(command.getId()).thenReturn(fakeId);
 

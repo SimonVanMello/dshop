@@ -8,11 +8,12 @@ import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 public class ProductManagementPersistenceAdapter implements ProductManagementPersistenceOut {
     private ProductManagementRepository productManagementRepository;
     public ProductManagementPersistenceAdapter(ProductManagementRepository productManagementRepository){
-        this.productManagementRepository =  productManagementRepository;
+        this.productManagementRepository = productManagementRepository;
     }
+
     @Override
     public void addProduct(Product product){
-        productManagementRepository.storeProduct(product);
+        this.productManagementRepository.storeProduct(product);
     }
 
     @Override
@@ -21,7 +22,9 @@ public class ProductManagementPersistenceAdapter implements ProductManagementPer
     }
 
     @Override
-    public void removeProduct(int id) {
-
+    public String removeProduct(int id) {
+        final String productName = this.productManagementRepository.getProductNameById(id);
+        this.productManagementRepository.deleteProductById(id);
+        return productName;
     }
 }

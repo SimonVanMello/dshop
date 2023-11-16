@@ -43,6 +43,8 @@ public class ProductManagementService implements ProductManagementUseCase {
 
     @Override
     public void removeProduct(ProductManagementRemoveCommand command){
-        this.productManagementPersistenceOut.removeProduct(command.getId());
+        String productName = this.productManagementPersistenceOut.removeProduct(command.getId());
+        System.out.println(productName);
+        this.productManagementCloudinaryOut.deleteImage(productName);
     }
 }
