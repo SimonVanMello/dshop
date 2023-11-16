@@ -1,4 +1,5 @@
 docker run \
+	--restart unless-stopped \
 	--detach \
 	--network=bridge \
 	-p 3306:3306 \
