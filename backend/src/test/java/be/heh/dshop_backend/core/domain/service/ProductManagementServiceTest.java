@@ -46,7 +46,7 @@ public class ProductManagementServiceTest {
         when(command.getImage()).thenReturn("fakeImage".getBytes());
 
         Product p = pms.addProduct(command);
-        verify(productManagementCloudinaryOutMock).saveImage(p.getImg());
+        verify(productManagementCloudinaryOutMock).saveImage(command);
     }
     
     @Test

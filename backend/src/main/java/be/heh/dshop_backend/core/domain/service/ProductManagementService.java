@@ -23,7 +23,7 @@ public class ProductManagementService implements ProductManagementUseCase {
 
     @Override
     public Product addProduct(ProductManagementAddCommand command){
-        String imgUrl = this.productManagementCloudinaryOut.saveImage(command.getImage());
+        String imgUrl = this.productManagementCloudinaryOut.saveImage(command);
         Product product = new Product(
             command.getName(),
             command.getPrice(),
