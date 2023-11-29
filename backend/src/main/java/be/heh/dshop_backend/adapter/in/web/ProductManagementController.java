@@ -1,26 +1,22 @@
 package be.heh.dshop_backend.adapter.in.web;
+
 import be.heh.dshop_backend.common.WebAdapter;
-import be.heh.dshop_backend.core.domain.service.ProductManagementService;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
-import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
-import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
+import be.heh.dshop_backend.core.port.in.ProductManagementUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-
 
 @WebAdapter
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProductManagementController {
-   private final ProductManagementPersistenceOut productManagementPersistenceOut;
-   private final ProductManagementCloudinaryOut productManagementCloudinaryOut;
+    private final ProductManagementUseCase productManagementUseCase;
 
     @CrossOrigin(origins="*")
     @PostMapping(path="/product", consumes="multipart/form-data", produces="application/json")
@@ -36,12 +32,8 @@ public class ProductManagementController {
             quantity,
             img.getBytes()
         );
-        final ProductManagementService productManagementService = new ProductManagementService(
-                productManagementPersistenceOut,
-                productManagementCloudinaryOut
-        );
 
-        productManagementService.addProduct(productManagementAddCommand);
+        productManagementUseCase.addProduct(productManagementAddCommand);
         return new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
     }
 
@@ -50,12 +42,9 @@ public class ProductManagementController {
     @ResponseBody
     public ResponseEntity<String> removeProduct(@PathVariable int id) throws IOException {
         ProductManagementRemoveCommand productManagementRemoveCommand = new ProductManagementRemoveCommand(id);
-        final ProductManagementService productManagementService = new ProductManagementService(
-                productManagementPersistenceOut,
-                productManagementCloudinaryOut
-        );
 
-        productManagementService.removeProduct(productManagementRemoveCommand);
+
+        productManagementUseCase.removeProduct(productManagementRemoveCommand);
         return new ResponseEntity<String>("Successfully removed", HttpStatus.OK);
     }
 }

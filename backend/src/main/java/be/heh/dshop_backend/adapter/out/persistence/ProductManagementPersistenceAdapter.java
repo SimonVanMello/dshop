@@ -4,7 +4,7 @@ import be.heh.dshop_backend.common.UseCase;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 
-@UseCase
+//@UseCase
 public class ProductManagementPersistenceAdapter implements ProductManagementPersistenceOut {
     private ProductManagementRepository productManagementRepository;
     public ProductManagementPersistenceAdapter(ProductManagementRepository productManagementRepository){

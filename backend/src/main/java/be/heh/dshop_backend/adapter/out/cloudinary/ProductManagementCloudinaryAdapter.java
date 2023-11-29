@@ -10,7 +10,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.io.IOException;
 import java.util.Map;
 
-@UseCase
+//@UseCase
 public class ProductManagementCloudinaryAdapter implements ProductManagementCloudinaryOut {
     private final Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
             "cloud_name", "dvrqjbqvd",
