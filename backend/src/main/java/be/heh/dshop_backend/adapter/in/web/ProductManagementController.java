@@ -25,26 +25,33 @@ public class ProductManagementController {
             @RequestParam(value="img") MultipartFile img,
             @RequestParam(value="name") String name,
             @RequestParam(value="price") double price,
-            @RequestParam(value="quantity") int quantity) throws IOException {
-        ProductManagementAddCommand productManagementAddCommand = new ProductManagementAddCommand(
-            name,
-            price,
-            quantity,
-            img.getBytes()
-        );
+            @RequestParam(value="quantity") int quantity) {
+        try{
+            ProductManagementAddCommand productManagementAddCommand = new ProductManagementAddCommand(
+                name,
+                price,
+                quantity,
+                img.getBytes()
+            );
 
-        productManagementUseCase.addProduct(productManagementAddCommand);
-        return new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
+            productManagementUseCase.addProduct(productManagementAddCommand);
+            return new ResponseEntity<>("Successfully created", HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @CrossOrigin(origins="*")
     @DeleteMapping(path="/product/{id}", produces="application/json")
     @ResponseBody
-    public ResponseEntity<String> removeProduct(@PathVariable int id) throws IOException {
-        ProductManagementRemoveCommand productManagementRemoveCommand = new ProductManagementRemoveCommand(id);
+    public ResponseEntity<String> removeProduct(@PathVariable int id){
+        try{
+            ProductManagementRemoveCommand productManagementRemoveCommand = new ProductManagementRemoveCommand(id);
 
-
-        productManagementUseCase.removeProduct(productManagementRemoveCommand);
-        return new ResponseEntity<String>("Successfully removed", HttpStatus.OK);
+            productManagementUseCase.removeProduct(productManagementRemoveCommand);
+            return new ResponseEntity<>("Successfully removed", HttpStatus.OK);
+        } catch(Exception e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 }
