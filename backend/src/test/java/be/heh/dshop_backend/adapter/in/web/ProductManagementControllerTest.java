@@ -19,6 +19,9 @@ public class ProductManagementControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Test
+    public void contextLoad(){}
+
+    @Test
     public void addNewProductWithInvalidImageShouldReturns400() throws Exception{
         MockMultipartFile file
                 = new MockMultipartFile(
