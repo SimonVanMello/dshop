@@ -1,9 +1,13 @@
 package be.heh.dshop_backend;
 
 import be.heh.dshop_backend.adapter.out.cloudinary.ProductManagementCloudinaryAdapter;
+import be.heh.dshop_backend.adapter.out.persistence.GetProductsPeristenceAdapter;
+import be.heh.dshop_backend.adapter.out.persistence.GetProductsRepository;
 import be.heh.dshop_backend.adapter.out.persistence.ProductManagementPersistenceAdapter;
 import be.heh.dshop_backend.adapter.out.persistence.ProductManagementRepository;
+import be.heh.dshop_backend.core.domain.service.GetProductsService;
 import be.heh.dshop_backend.core.domain.service.ProductManagementService;
+import be.heh.dshop_backend.core.port.in.GetProductsUseCase;
 import be.heh.dshop_backend.core.port.in.ProductManagementUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +19,21 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 public class DshopapplicationConfiguration {
     @Autowired
     private ProductManagementRepository productManagementRepository;
+    @Autowired
+    private GetProductsRepository getProductsRepository;
 
     @Bean
     public ProductManagementUseCase getProductManagementUseCase(){
         return new ProductManagementService(
                 new ProductManagementPersistenceAdapter(this.productManagementRepository),
                 new ProductManagementCloudinaryAdapter()
+        );
+    }
+
+    @Bean
+    public GetProductsUseCase getProductsUseCase(){
+        return new GetProductsService(
+                new GetProductsPeristenceAdapter(this.getProductsRepository)
         );
     }
 }

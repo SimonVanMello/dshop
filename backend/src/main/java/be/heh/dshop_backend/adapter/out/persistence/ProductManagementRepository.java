@@ -3,10 +3,7 @@ package be.heh.dshop_backend.adapter.out.persistence;
 import be.heh.dshop_backend.core.domain.model.Product;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import java.sql.PreparedStatement;
 
 @Repository
 public class ProductManagementRepository {
