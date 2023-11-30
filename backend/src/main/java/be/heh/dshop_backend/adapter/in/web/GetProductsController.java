@@ -6,6 +6,7 @@ import be.heh.dshop_backend.core.port.in.GetProductsUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,16 +22,17 @@ public class GetProductsController {
     private final GetProductsUseCase getProductsUseCase;
 
     @CrossOrigin(origins="*")
-    @GetMapping(path="/product", produces="application/json")
+    @GetMapping(path={"/product", "/product/"}, produces="application/json")
     @ResponseBody
-    public ResponseEntity<List<Product>> getProducts(){
+    public ResponseEntity getProducts(){
         try{
-            return new ResponseEntity<>(
-                this.getProductsUseCase.getProducts(),
-                    HttpStatus.OK
-            );
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(this.getProductsUseCase.getProducts());
         } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 }

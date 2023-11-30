@@ -16,17 +16,17 @@ public class GetProductController {
     private final GetProductUseCase getProductUseCase;
 
     @CrossOrigin(origins="*")
-    @GetMapping(path="/product/{id}", produces="application/json")
+    @GetMapping(path={"/product/{id}", "/product/{id}/"}, produces="application/json")
     @ResponseBody
-    public ResponseEntity<Product> getProduct(@PathVariable int id){
+    public ResponseEntity getProduct(@PathVariable int id){
         try{
-            return new ResponseEntity<>(
-                    this.getProductUseCase.getProduct(id),
-                    HttpStatus.OK
-            );
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(this.getProductUseCase.getProduct(id));
         } catch(Exception e){
-            System.out.println(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
         }
     }
 }

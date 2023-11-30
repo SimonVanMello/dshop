@@ -19,7 +19,7 @@ public class ProductManagementController {
     private final ProductManagementUseCase productManagementUseCase;
 
     @CrossOrigin(origins="*")
-    @PostMapping(path="/product", consumes="multipart/form-data", produces="application/json")
+    @PostMapping(path={"/product", "/product/"}, consumes="multipart/form-data", produces="application/json")
     @ResponseBody
     public ResponseEntity<String> addProduct(
             @RequestParam(value="img") MultipartFile img,
@@ -43,7 +43,7 @@ public class ProductManagementController {
     }
 
     @CrossOrigin(origins="*")
-    @DeleteMapping(path="/product/{id}", produces="application/json")
+    @DeleteMapping(path={"/product/{id}", "/product/id/"}, produces="application/json")
     @ResponseBody
     public ResponseEntity<String> removeProduct(@PathVariable int id){
         try{
