@@ -11,8 +11,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the jar file
-      run: ./gradlew build
+      run: ./backend/gradlew build
     - name: Build docker image
       run: |
-        docker build --file Dockerfile --tag simonvanmello/dshop:$(date +%s) .
+        docker build --file backend/Dockerfile --tag simonvanmello/dshop:$(date +%s) .
         docker push simonvanmello/dshop:$(date : %s)
