@@ -23,7 +23,7 @@ jobs:
       
     - name: Build with Gradle
       working-directory: ./backend
-      run: ./gradlew build test=false
+      run: ./gradlew build -x test
       
     - name: Build docker image
       run: |
