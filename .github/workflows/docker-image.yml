@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the jar file
+      run: ./gradlew build
+    - name: Build docker image
+      run: |
+        docker build --file Dockerfile --tag simonvanmello/dshop:$(date +%s) .
+        docker push simonvanmello/dshop:$(date : %s)
