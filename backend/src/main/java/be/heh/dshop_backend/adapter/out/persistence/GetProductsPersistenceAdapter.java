@@ -5,10 +5,10 @@ import be.heh.dshop_backend.core.port.out.GetProductsPersistenceOut;
 
 import java.util.ArrayList;
 
-public class GetProductsPeristenceAdapter implements GetProductsPersistenceOut {
+public class GetProductsPersistenceAdapter implements GetProductsPersistenceOut {
     private GetProductsRepository getProductsRepository;
 
-    public GetProductsPeristenceAdapter(GetProductsRepository getProductsRepository){
+    public GetProductsPersistenceAdapter(GetProductsRepository getProductsRepository){
         this.getProductsRepository = getProductsRepository;
     }
 

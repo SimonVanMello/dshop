@@ -1,7 +1,6 @@
 package be.heh.dshop_backend.adapter.in.web;
 
 import be.heh.dshop_backend.common.WebAdapter;
-import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.GetProductUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

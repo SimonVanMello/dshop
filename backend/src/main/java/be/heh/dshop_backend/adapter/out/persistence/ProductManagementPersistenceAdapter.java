@@ -4,7 +4,7 @@ import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 
 public class ProductManagementPersistenceAdapter implements ProductManagementPersistenceOut {
-    private ProductManagementRepository productManagementRepository;
+    private final ProductManagementRepository productManagementRepository;
     public ProductManagementPersistenceAdapter(ProductManagementRepository productManagementRepository){
         this.productManagementRepository = productManagementRepository;
     }

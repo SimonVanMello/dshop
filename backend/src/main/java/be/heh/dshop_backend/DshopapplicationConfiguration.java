@@ -34,7 +34,7 @@ public class DshopapplicationConfiguration {
     @Bean
     public GetProductsUseCase getGetProductsUseCase(){
         return new GetProductsService(
-            new GetProductsPeristenceAdapter(this.getProductsRepository)
+            new GetProductsPersistenceAdapter(this.getProductsRepository)
         );
     }
 
