@@ -28,11 +28,9 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'javax.enterprise:javax.enterprise-api:9.0.0'
     implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
     testImplementation "org.mockito:mockito-core:4.2.0"
     implementation 'com.cloudinary:cloudinary-http44:1.27.0'
-//    runtimeOnly 'com.mysql:mysql-connector-j'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jdbc', version: '2.7.3'
 }

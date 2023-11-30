@@ -1,6 +1,6 @@
 package be.heh.dshop_backend.adapter.out.cloudinary;
 
-import be.heh.dshop_backend.common.UseCase;
+//import be.heh.dshop_backend.common.UseCase;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import com.cloudinary.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
