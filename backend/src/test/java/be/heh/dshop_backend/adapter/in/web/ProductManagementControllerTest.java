@@ -19,7 +19,7 @@ public class ProductManagementControllerTest {
     private WebApplicationContext webApplicationContext;
 
     @Test
-    public void addNewProductReturns201() throws Exception{
+    public void addNewProductWithInvalidImageShouldReturns400() throws Exception{
         MockMultipartFile file
                 = new MockMultipartFile(
                 "img",
@@ -35,7 +35,7 @@ public class ProductManagementControllerTest {
                 .param("price", "12.4")
                 .param("quantity", "3")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(201));
+                .andExpect(status().is(400));
 
     }
 }

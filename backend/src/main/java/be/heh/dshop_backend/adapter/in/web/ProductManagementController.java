@@ -37,6 +37,7 @@ public class ProductManagementController {
             productManagementUseCase.addProduct(productManagementAddCommand);
             return new ResponseEntity<>("Successfully created", HttpStatus.CREATED);
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

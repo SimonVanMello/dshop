@@ -1,6 +1,5 @@
 package be.heh.dshop_backend.core.domain.service;
 
-import be.heh.dshop_backend.adapter.out.persistence.ProductManagementPersistenceAdapter;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
@@ -30,7 +29,7 @@ public class ProductManagementServiceTest {
     }
 
     @Test
-    public void addProductShouldCallSaveImageInProductManagementCloudinaryAdapter(){
+    public void addProductShouldCallSaveImageInProductManagementCloudinaryOut(){
         ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
         ProductManagementCloudinaryOut productManagementCloudinaryOutMock = mock(ProductManagementCloudinaryOut.class);
         ProductManagementService pms = new ProductManagementService(
@@ -49,7 +48,7 @@ public class ProductManagementServiceTest {
     }
     
     @Test
-    public void removeProductShouldCallRemoveProductInProductManagementOut(){
+    public void removeProductShouldCallRemoveProductInProductManagementPersistenceOut(){
         ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
         ProductManagementCloudinaryOut productManagementCloudinaryOutMock = mock(ProductManagementCloudinaryOut.class);
         ProductManagementService pms = new ProductManagementService(
@@ -63,5 +62,25 @@ public class ProductManagementServiceTest {
 
         pms.removeProduct(command);
         verify(productManagementPersistenceOutMock).removeProduct(fakeId);
+    }
+
+    @Test
+    public void removeProductShouldCallDeleteImageInProductManagementCloudinaryOut(){
+        ProductManagementPersistenceOut productManagementPersistenceOutMock = mock(ProductManagementPersistenceOut.class);
+        ProductManagementCloudinaryOut productManagementCloudinaryOutMock = mock(ProductManagementCloudinaryOut.class);
+        ProductManagementService pms = new ProductManagementService(
+                productManagementPersistenceOutMock,
+                productManagementCloudinaryOutMock
+        );
+
+        final int fakeId = 1;
+        final String fakeImageName = "imageName";
+        ProductManagementRemoveCommand command = mock(ProductManagementRemoveCommand.class);
+        when(command.getId()).thenReturn(fakeId);
+
+        when(productManagementPersistenceOutMock.removeProduct(fakeId)).thenReturn(fakeImageName);
+
+        pms.removeProduct(command);
+        verify(productManagementCloudinaryOutMock).deleteImage(fakeImageName);
     }
 }
