@@ -29,4 +29,4 @@ jobs:
       working-directory: ./backend
       run: |
         docker build --file Dockerfile --tag simonvanmello/dshop:$(date +%s) .
-        docker push simonvanmello/dshop:$(date : %s)
+        docker push simonvanmello/dshop:$(date : +%s)
