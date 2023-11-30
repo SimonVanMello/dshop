@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 
 public class GetProductsPersistenceAdapterTest {
     @Test
-    public void getProductsShouldCallGetProductsInGetProductsRepository(){
+    public void getProductsShouldReturnProductsFromGetProductsRepository(){
         GetProductsRepository getProductsRepositoryMock = mock(GetProductsRepository.class);
         GetProductsPersistenceAdapter getProductPersistenceAdapter = new GetProductsPersistenceAdapter(
                 getProductsRepositoryMock

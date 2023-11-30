@@ -26,6 +26,6 @@ public class GetProductsServiceTest {
         when(getProductsPersistenceOutMock.getProducts()).thenReturn(products);
 
         ArrayList<Product> results = getProductsService.getProducts();
-        assertEquals(results, products);
+        assertEquals(products, results);
     }
 }
