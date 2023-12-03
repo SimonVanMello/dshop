@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: mariadb:latest
+    container_name: dshop-mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Dshop
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./initsql:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
