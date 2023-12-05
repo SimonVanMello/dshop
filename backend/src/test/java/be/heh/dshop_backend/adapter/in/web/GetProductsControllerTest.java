@@ -1,40 +1,43 @@
 package be.heh.dshop_backend.adapter.in.web;
 
 import be.heh.dshop_backend.core.domain.model.Product;
+import be.heh.dshop_backend.core.port.in.GetProductsUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@WebMvcTest(controllers = GetProductsController.class)
 public class GetProductsControllerTest {
     @Autowired
-    private GetProductsController controller;
+    private MockMvc mockMvc;
+
+    @MockBean
+    private GetProductsUseCase getProductsUseCase;
 
     @Test
-    public void contextLoad(){
-        assertThat(this.controller).isNotNull();
-    }
+    public void getProductsCallGetProductsInGetProductsUseCase() throws Exception{
+        ArrayList<Product> productsList = new ArrayList<>();
+        Product product = new Product(
+            1,
+            "name",
+            12.3,
+            "imgUrl",
+            2
+        );
+        productsList.add(product);
 
-    @Test
-    public void getProductsShouldReturnAnArray(){
-        assertThat(this.controller.getProducts()).getClass().isArray();
-    }
-
-    @Test
-    public void getProductsShouldReturnAnArrayOfProductsOrEmptyArray(){
-        ResponseEntity response =  this.controller.getProducts();
-        Object productsObject = response.getBody().getClass();
-        List<Object> products = Arrays.asList(productsObject);
-        if (products.size() > 0){
-            assertThat(products.get(0)).getClass().isInstance(Product.class);
-        } else{
-            assertThat(products).getClass().isArray();
-        }
+        when(getProductsUseCase.getProducts()).thenReturn(productsList);
+        mockMvc.perform(get("/product"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

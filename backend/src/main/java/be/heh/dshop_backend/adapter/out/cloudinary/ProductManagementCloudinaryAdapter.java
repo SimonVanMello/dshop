@@ -1,6 +1,5 @@
 package be.heh.dshop_backend.adapter.out.cloudinary;
 
-//import be.heh.dshop_backend.common.UseCase;
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import com.cloudinary.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
@@ -10,7 +9,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.io.IOException;
 import java.util.Map;
 
-//@UseCase
 public class ProductManagementCloudinaryAdapter implements ProductManagementCloudinaryOut {
     private final Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
             "cloud_name", "dvrqjbqvd",
