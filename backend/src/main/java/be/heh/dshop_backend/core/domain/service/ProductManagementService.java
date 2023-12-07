@@ -38,8 +38,14 @@ public class ProductManagementService implements ProductManagementUseCase {
     }
 
     @Override
-    public void modifyProduct(ProductManagementModifyCommand command){
-        Product oldProduct = getProductUseCase.getProduct(command.getId());
+    public void modifyProduct(ProductManagementModifyCommand command) throws Exception {
+        try {
+            Product oldProduct = getProductUseCase.getProduct(command.getId());
+        }
+        catch (Exception e){
+            throw new Exception("this product doesn't exist");
+        }
+
         String imgUrl = this.productManagementCloudinaryOut.modifyImage(command);
         Product product = new Product(
                 command.getId(),
