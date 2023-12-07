@@ -16,7 +16,7 @@ public class ProductManagementPersistenceAdapter implements ProductManagementPer
 
     @Override
     public void modifyProduct(Product product){
-
+        this.productManagementRepository.modifyProduct(product);
     }
 
     @Override

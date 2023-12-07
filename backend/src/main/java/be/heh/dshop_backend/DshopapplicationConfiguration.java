@@ -27,7 +27,8 @@ public class DshopapplicationConfiguration {
     public ProductManagementUseCase getProductManagementUseCase(){
         return new ProductManagementService(
             new ProductManagementPersistenceAdapter(this.productManagementRepository),
-            new ProductManagementCloudinaryAdapter()
+            new ProductManagementCloudinaryAdapter(),
+            new GetProductService(new GetProductPersistenceAdapter(this.getProductRepository))
         );
     }
 

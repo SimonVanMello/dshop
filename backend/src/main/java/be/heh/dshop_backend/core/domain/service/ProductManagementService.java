@@ -1,23 +1,25 @@
 package be.heh.dshop_backend.core.domain.service;
 
+import be.heh.dshop_backend.adapter.out.persistence.GetProductPersistenceAdapter;
+import be.heh.dshop_backend.adapter.out.persistence.GetProductRepository;
 import be.heh.dshop_backend.core.domain.model.Product;
-import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
-import be.heh.dshop_backend.core.port.in.ProductManagementModifyCommand;
-import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
-import be.heh.dshop_backend.core.port.in.ProductManagementUseCase;
+import be.heh.dshop_backend.core.port.in.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
 import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 
 public class ProductManagementService implements ProductManagementUseCase {
     private final ProductManagementPersistenceOut productManagementPersistenceOut;
     private final ProductManagementCloudinaryOut productManagementCloudinaryOut;
+    private final GetProductUseCase getProductUseCase;
 
     public ProductManagementService(
             ProductManagementPersistenceOut productManagementPersistenceOut,
-            ProductManagementCloudinaryOut productManagementCloudinaryOut
+            ProductManagementCloudinaryOut productManagementCloudinaryOut,
+            GetProductUseCase getProductUseCase
     ){
         this.productManagementPersistenceOut = productManagementPersistenceOut;
         this.productManagementCloudinaryOut = productManagementCloudinaryOut;
+        this.getProductUseCase = getProductUseCase;
     }
 
     @Override
@@ -37,7 +39,17 @@ public class ProductManagementService implements ProductManagementUseCase {
 
     @Override
     public void modifyProduct(ProductManagementModifyCommand command){
-
+        Product oldProduct = getProductUseCase.getProduct(command.getId());
+        String imgUrl = this.productManagementCloudinaryOut.modifyImage(command);
+        Product product = new Product(
+                command.getId(),
+                command.getName(),
+                command.getPrice(),
+                imgUrl,
+                command.getQuantity(),
+                command.getImage()
+        );
+        this.productManagementPersistenceOut.modifyProduct(product);
     }
 
     @Override
