@@ -53,4 +53,6 @@ html, body, #root {
 	height: 100%;
 	width: 100%;
 	font-family: 'Roboto', sans-serif;
+	display: flex;
+	flex-direction: column;
 }
