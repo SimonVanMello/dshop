@@ -1,17 +1,17 @@
-import React, { useState, useContext } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
+
 import Form from 'react-bootstrap/Form';
-import GlobalContext from '../../store/global-context.ts';
+import Button from 'react-bootstrap/Button';
+
+// @ts-ignore
+import { api } from '../../constants/api.js';
 import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
 
 import './AddProductForm.css';
 
-
 const AddProductForm = (): JSX.Element => {
     const [validated, setValidated] = useState(false);
     const [showAddedProductAlert, setShowAddedProductAlert] = useState(false);
-
-    const {serverUrl} = useContext(GlobalContext);
 
     const handleSubmit = (event: any): void => {
         event.preventDefault();
@@ -24,11 +24,13 @@ const AddProductForm = (): JSX.Element => {
         const formData = new FormData(event.target);
         formData.delete("img");
         const imgInput: HTMLInputElement = document.getElementById("AddProductForm.img") as HTMLInputElement;
-        formData.append("img", imgInput.files[0]);
-        console.log(formData);
+        if (imgInput.files != null){
 
+            formData.append("img", imgInput.files[0]);
+            console.log(formData);
+        }
 
-        fetch(`${serverUrl}/product`, {
+        fetch(`${api.serverUrl}/product`, {
             method: 'post',
             headers: {
                 'Accept': '*/*',
