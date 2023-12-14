@@ -4,6 +4,7 @@ import be.heh.dshop_backend.adapter.out.persistence.GetProductPersistenceAdapter
 import be.heh.dshop_backend.adapter.out.persistence.GetProductRepository;
 import be.heh.dshop_backend.core.domain.model.Product;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.context.annotation.Import;
 
@@ -13,13 +14,13 @@ import static org.mockito.Mockito.*;
 @DataJdbcTest
 @Import({GetProductPersistenceAdapter.class})
 public class GetProductPersistenceAdapterTest {
+    @Autowired
+    private GetProductPersistenceAdapter getProductPersistenceAdapter;
+    @Autowired
+    private GetProductRepository getProductRepository;
+
     @Test
     public void getProductShouldReturnProductFromGetProductRepository(){
-        GetProductRepository getProductRepositoryMock = mock(GetProductRepository.class);
-        GetProductPersistenceAdapter getProductPersistenceAdapter = new GetProductPersistenceAdapter(
-                getProductRepositoryMock
-        );
-
         final int id = 1;
         Product product = new Product(
                 1,
@@ -28,7 +29,7 @@ public class GetProductPersistenceAdapterTest {
                 "imgUrl",
                 2
         );
-        when(getProductRepositoryMock.getProduct(id)).thenReturn(product);
+        when(getProductRepository.getProduct(id)).thenReturn(product);
 
         Product result = getProductPersistenceAdapter.getProduct(id);
         assertEquals(result, product);
