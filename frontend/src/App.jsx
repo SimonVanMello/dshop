@@ -7,8 +7,8 @@ const App = () => {
 	return (
 		<GlobalContextProvider>
 			<NavigationBar />
-			{/* <AddProductPage /> */}
-			<HomePage />
+			<AddProductPage />
+			{/* <HomePage /> */}
 		</GlobalContextProvider>
 	);
 }

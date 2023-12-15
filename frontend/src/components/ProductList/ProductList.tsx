@@ -13,8 +13,8 @@ import './ProductList.css';
 import ProductCard from '../ProductCard/ProductCard.js';
 
 const ProductList = (): JSX.Element => {
-	const [error, setError] = useState('');
-	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState<string>('');
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [products, setProducts] = useState<Array<Product>>([]);
 
 	useEffect(() => {
@@ -26,7 +26,7 @@ const ProductList = (): JSX.Element => {
 					setError('');
 					return res.json()
 				case 401:
-					setError('Error: You are need to be authenticated.');
+					setError('Error: You need to be authenticated to access this ressource.');
 					return false
 				case 403:
 					setError('Error: You are not authorized to access this ressource.');

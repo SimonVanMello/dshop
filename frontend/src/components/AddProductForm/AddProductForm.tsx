@@ -10,8 +10,8 @@ import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
 import './AddProductForm.css';
 
 const AddProductForm = (): JSX.Element => {
-    const [validated, setValidated] = useState(false);
-    const [showAddedProductAlert, setShowAddedProductAlert] = useState(false);
+    const [validated, setValidated] = useState<boolean>(false);
+    const [showAddedProductAlert, setShowAddedProductAlert] = useState<boolean>(false);
 
     const handleSubmit = (event: any): void => {
         event.preventDefault();
