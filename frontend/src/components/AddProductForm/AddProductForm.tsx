@@ -1,22 +1,25 @@
 import { useState } from 'react';
 
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 // @ts-ignore
 import { api } from '../../constants/api.js';
-import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
 
 import './AddProductForm.css';
+import { Alert, Spinner } from 'react-bootstrap';
 
 const AddProductForm = (): JSX.Element => {
     const [validated, setValidated] = useState<boolean>(false);
-    const [showAddedProductAlert, setShowAddedProductAlert] = useState<boolean>(false);
-	// const navigate = useNavigate();
+	const [error, setError] = useState<string>('');
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const navigate = useNavigate();
 
     const handleSubmit = (event: any): void => {
         event.preventDefault();
+		setIsLoading(true);
+		setError('');
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
@@ -29,8 +32,8 @@ const AddProductForm = (): JSX.Element => {
         if (imgInput.files != null){
 
             formData.append("img", imgInput.files[0]);
-            console.log(formData);
         }
+		setValidated(true);
 
         fetch(`${api.serverUrl}/product`, {
             method: 'post',
@@ -38,19 +41,29 @@ const AddProductForm = (): JSX.Element => {
                 'Accept': '*/*',
             },
             body: formData
-        }).then(response => {
-            console.log(response);
-            if (response.status == 201){
-                setShowAddedProductAlert(true);
-            }
         })
-        
-        setValidated(true);
+		.then(response => {
+            if (response.status == 201){
+				navigate('/');
+				setIsLoading(false);
+				return '';
+            }
+			return response.text();
+        })
+		.then(response => {
+			if (!response) return;
+			setError(response);
+			setIsLoading(false);
+			form.reset();
+		})
+		.catch(error => {
+			setError(error);
+			setIsLoading(false);
+		});
     };
 
     return (
 		<div className="formContainer">
-			{showAddedProductAlert && <AddedProductAlert showAddedProductAlert={showAddedProductAlert} setShowAddedProductAlert={setShowAddedProductAlert} />}
             <Form noValidate onSubmit={handleSubmit} validated={validated}>
                 <Form.Group className="mb-3" controlId="AddProductForm.name">
                     <Form.Label>Name</Form.Label>
@@ -73,8 +86,19 @@ const AddProductForm = (): JSX.Element => {
                 </Form.Group>
 
                 <Button variant="primary" type="submit" style={{width: '100%', marginTop: '20px'}}>
+					<Spinner
+						animation="border"
+						role="status"
+						size="sm"
+						style={{ display: isLoading ? 'inline-block': 'none', marginRight: '5px' }}
+					/>
                     Submit
                 </Button>
+			{error && (
+				<Alert variant="danger" style={{marginTop: '20px'}}>
+					{error}
+				</Alert>
+			)}
             </Form>
         </div>
     )
