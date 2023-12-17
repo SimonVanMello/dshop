@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Alert from 'react-bootstrap/Alert';
-import Spinner from 'react-bootstrap/Spinner';
 
 // @ts-ignore
 import { api } from '../../constants/api.js';
