@@ -30,11 +30,13 @@ public class DshopapplicationConfiguration {
     @Bean
     public ProductManagementUseCase getProductManagementUseCase(
             ProductManagementPersistenceOut productManagementPersistenceOut,
-            ProductManagementCloudinaryOut productManagementCloudinaryOut
+            ProductManagementCloudinaryOut productManagementCloudinaryOut,
+            GetProductsUseCase getProductsUseCase
     ){
         return new ProductManagementService(
             productManagementPersistenceOut,
-            productManagementCloudinaryOut
+            productManagementCloudinaryOut,
+            getProductsUseCase
         );
     }
 
