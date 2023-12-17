@@ -8,7 +8,9 @@ import Spinner from 'react-bootstrap/Spinner';
 // @ts-ignore
 import { api } from '../../constants/api.js';
 import { Product } from '../../types/Product';
-import ProductDetailsTable from '../../components/ProductDetailsTable/ProductDetailsTable.js';
+import DeleteProductButton from '../../components/DeleteProductButton/DeleteProductButton';
+import ProductDetailsTable from '../../components/ProductDetailsTable/ProductDetailsTable';
+
 import './ProductDetailsPage.css';
 
 const ProductDetailsPage = (): JSX.Element => {
@@ -60,7 +62,10 @@ const ProductDetailsPage = (): JSX.Element => {
 	if (product && !isLoading){
 		return (
 			<div id="productDetailsPageContainer">
-				<ProductDetailsTable product={product} />
+				<div id="productDetailsPageInnerContainer">
+					<ProductDetailsTable product={product} />
+					{product.id && <DeleteProductButton id={product.id} setError={setError} />}
+				</div>
 			</div>
 		)
 	}

@@ -8,7 +8,7 @@ type ProductDetailsTableProps = {
 
 const ProductDetailsTable = ({product}: ProductDetailsTableProps): JSX.Element => {
 	return (
-		<div style={{width: "60%", margin: "20px 10% 0 10%"}}>
+		<div style={{width: "100%"}}>
 			<img src={product.imgUrl} style={{width: "20rem", marginBottom: "20px"}} alt="#" />
             <Table striped bordered>
 				<tbody>

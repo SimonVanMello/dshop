@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
+// import { useNavigate } from 'react-router-dom';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
 // @ts-ignore
 import { api } from '../../constants/api.js';
 import AddedProductAlert from '../AddedProductAlert/AddedProductAlert.tsx';
@@ -12,6 +13,7 @@ import './AddProductForm.css';
 const AddProductForm = (): JSX.Element => {
     const [validated, setValidated] = useState<boolean>(false);
     const [showAddedProductAlert, setShowAddedProductAlert] = useState<boolean>(false);
+	// const navigate = useNavigate();
 
     const handleSubmit = (event: any): void => {
         event.preventDefault();
@@ -47,8 +49,8 @@ const AddProductForm = (): JSX.Element => {
     };
 
     return (
-        <div className="formContainer">
-            {showAddedProductAlert && <AddedProductAlert showAddedProductAlert={showAddedProductAlert} setShowAddedProductAlert={setShowAddedProductAlert} />}
+		<div className="formContainer">
+			{showAddedProductAlert && <AddedProductAlert showAddedProductAlert={showAddedProductAlert} setShowAddedProductAlert={setShowAddedProductAlert} />}
             <Form noValidate onSubmit={handleSubmit} validated={validated}>
                 <Form.Group className="mb-3" controlId="AddProductForm.name">
                     <Form.Label>Name</Form.Label>
@@ -70,7 +72,7 @@ const AddProductForm = (): JSX.Element => {
                     <Form.Control type="file" placeholder="Enter image" accept=".jpg,.jpeg,.png" name="img" required />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" style={{width: '100%', marginTop: '20px'}}>
                     Submit
                 </Button>
             </Form>
