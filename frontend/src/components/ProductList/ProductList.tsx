@@ -11,6 +11,7 @@ import { Product } from '../../types/Product.js';
 
 import './ProductList.css';
 import ProductCard from '../ProductCard/ProductCard.js';
+import ProductCardPlaceholder from '../ProductCardPlaceholder/ProductCardPlaceholder.js';
 
 const ProductList = (): JSX.Element => {
 	const [error, setError] = useState<string>('');
@@ -48,9 +49,15 @@ const ProductList = (): JSX.Element => {
 
 	if (isLoading){
 		return(
-			<Spinner animation="border" role="status">
-				<span className="visually-hidden">Loading...</span>
-			</Spinner>
+			<div id="productList">
+				<Row xs={1} md={3} className="g-4">
+					{[...Array(9)].map((_, index) => (
+						<Col key={index} style={{display: "flex", justifyContent: "center"}}>
+							<ProductCardPlaceholder />
+						</Col>
+					))}
+				</Row>
+			</div>
 		)
 	}
 
