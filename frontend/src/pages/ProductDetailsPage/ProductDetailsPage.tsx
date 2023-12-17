@@ -27,6 +27,9 @@ const ProductDetailsPage = (): JSX.Element => {
 				case 200: 
 					setError('');
 					return res.json()
+				case 400:
+					setError('Error: This product does not exist.');
+					return false
 				case 401:
 					setError('Error: You need to be authenticated to access this ressource.');
 					return false
