@@ -10,12 +10,12 @@ type ProductCardProps = {
 
 const ProductCard = (props: ProductCardProps): JSX.Element => {
 	return (
-		<Card style={{width: '24rem'}}>
+		<Card style={{width: '24rem', display: 'flex'}}>
 			<Link to={`product/${props.product.id}`} style={{width: '100%', height: '100%'}}>
 				<Card.Img
 					variant="top"
 					src={props.product.imgUrl}
-					style={{height: '400px'}}
+					style={{width: '100%', height: '100%'}}
 				/>
 			</Link>
 			<Card.Body>
