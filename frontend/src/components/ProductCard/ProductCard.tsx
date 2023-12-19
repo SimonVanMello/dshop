@@ -26,13 +26,13 @@ const ProductCard = (props: ProductCardProps): JSX.Element => {
 					<Card.Title>{props.product.name}</Card.Title>
 					<Card.Text>$ {props.product.price}</Card.Text>
 				</div>
-				<div style={{display: 'flex', justifyContent: 'space-between'}}>
+				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
 					<Form.Control
 						type='number'
 						min='1'
 						max={props.product.quantity}
 						defaultValue='1'
-						style={{width: '100px'}}
+						style={{width: '80px', height: '30px'}}
 					/>
 					<Button variant='primary' size='sm'>Add to cart</Button>
 				</div>
