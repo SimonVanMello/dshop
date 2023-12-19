@@ -82,7 +82,7 @@ const AddProductForm = (): JSX.Element => {
 
                 <Form.Group className="mb-3" controlId="AddProductForm.img">
                     <Form.Label>Image</Form.Label>
-                    <Form.Control type="file" placeholder="Enter image" accept=".jpg,.jpeg,.png" name="img" required />
+                    <Form.Control type="file" placeholder="Enter image" accept=".jpg,.jpeg,.png,.webp" name="img" required />
                 </Form.Group>
 
                 <Button variant="primary" type="submit" style={{width: '100%', marginTop: '20px'}}>
