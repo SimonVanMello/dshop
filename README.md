@@ -19,4 +19,4 @@ This project is an online shop built with React for the frontend and Spring Boot
 - **Backend**: Spring Boot
 - **Database**: MariaDB
 - **Authentication**: Google Sign-In
-- **Storing Images**: Cloudinary
+- **Image CDN**: Cloudinary
