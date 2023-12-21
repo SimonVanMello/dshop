@@ -7,7 +7,7 @@ const ProductCardPlaceholder = (): JSX.Element => {
 			<Card.Header>
 				<Card.Img
 					variant="top"
-					src="https://dummyimage.com/600x600/b8b8b8/ffffff.gif"
+					src="https://dummyimage.com/600x600/b8b8b8/ffffff.gif&text=+"
 					style={{height: '100%', width: '100%'}}
 				/>
 			</Card.Header>
