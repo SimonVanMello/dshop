@@ -17,5 +17,6 @@ This project is an online shop built with React for the frontend and Spring Boot
 
 - **Frontend**: React + TypeScript
 - **Backend**: Spring Boot
-- **Database**: MySQL
+- **Database**: MariaDB
 - **Authentication**: Google Sign-In
+- **Storing Images**: Cloudinary
