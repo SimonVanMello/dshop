@@ -1,8 +1,8 @@
-export const setCookie = (cname, cvalue) => {
+export const setCookie = (cname: string, cvalue: string) => {
     document.cookie = cname + "=" + cvalue + ";";
 }
 
-export const getCookie = cname => {
+export const getCookie = (cname: string) => {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -18,7 +18,7 @@ export const getCookie = cname => {
     return "";
 }
 
-export const checkCookie = cname => {
+export const checkCookie = (cname: string) => {
     let cookie = getCookie(cname);
     if (cookie !== "") {
         return true;
@@ -26,6 +26,6 @@ export const checkCookie = cname => {
     return false;
 }
 
-export const delCookie = cname => {
+export const delCookie = (cname: string) => {
     document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
 }
