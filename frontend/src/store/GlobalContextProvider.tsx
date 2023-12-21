@@ -1,7 +1,10 @@
-import React from 'react';
 import GlobalContext from "./global-context.ts";
 
-const GlobalContextProvider = ({children}) => {
+type GlobalContextProviderProps = {
+    children: JSX.Element
+}
+
+const GlobalContextProvider = ({children}: GlobalContextProviderProps): JSX.Element => {
     const globalCtxValue = {
         
     };
