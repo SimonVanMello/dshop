@@ -4,7 +4,7 @@ Welcome to the Minecraft Online Shop, your one-stop destination for buying Minec
 
 ## 📚 Project Overview
 
-This project is an online shop built with React for the frontend and Spring Boot for the backend. It allows Minecraft enthusiasts to browse, purchase, and manage their favorite in-game items and accessories.
+This project employs a robust and modular hexagonal architecture, utilizing React for the frontend and Spring Boot for the backend. Embrace the Minecraft experience by exploring, purchasing, and managing your favorite in-game items and accessories through our user-friendly platform.
 
 ## 🚀 Features
 
