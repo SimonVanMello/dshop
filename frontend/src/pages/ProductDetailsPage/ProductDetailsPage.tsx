@@ -68,7 +68,7 @@ const ProductDetailsPage = (): JSX.Element => {
 			<div id="productDetailsPageContainer">
 				<div id="productDetailsPageInnerContainer">
 					<ProductDetailsTable product={product} />
-					{product.id && <ModifyProductButton id={product.id} setError={setError} />}
+					{product.id && <ModifyProductButton product={product} setError={setError} />}
 					{product.id && <DeleteProductButton id={product.id} setError={setError} />}
 				</div>
 			</div>

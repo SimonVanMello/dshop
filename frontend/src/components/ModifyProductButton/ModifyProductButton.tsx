@@ -6,39 +6,81 @@ import { Button, Spinner } from 'react-bootstrap';
 import { api } from '../../constants/api';
 
 import './ModifyProductButton.css';
+import { Product } from "../../types/Product";
 
 type ModifyProductButtonProps = {
-	id: number;
+	product: Product;
 	setError: (error: string) => void;
 }
 
-const ModifyProductButton = ({ id, setError }: ModifyProductButtonProps): JSX.Element => {
+const ModifyProductButton = ({ product, setError }: ModifyProductButtonProps): JSX.Element => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+
 	const navigate = useNavigate();
 
-	const handleClick = () => {
+	function handleClick() {
 		setIsLoading(true);
-		fetch(`${api.serverUrl}/product/${id}`, {
-			method: 'DELETE',
-		})
-		.then(res => {
-			if (res.status === 200) {
+		const formData = new FormData();
+		if (product.img === null || product.img === undefined){
+			fetch(product.imgUrl)
+			.then((response) => {
+				if (!response.ok) {
+				throw new Error(`Erreur de chargement de l'image: ${response.status}`);
+				}
+				return response.blob();
+			}).then((responseBlob)=>{
+				formData.append('img',responseBlob);
+				formData.append('name', product.name);
+				formData.append('price', product.price.toString());
+				formData.append('quantity', product.quantity.toString());
+				fetch(`${api.serverUrl}/product/${product.id}`, {
+					method: 'PUT',
+					body : formData
+				})
+				.then(res => {
+					if (res.status === 200) {
+						setIsLoading(false);
+						navigate('/');
+						return '';
+					}
+					return res.text();
+				})
+				.then(res => {
+					if (!res) return;
+					setError(res);
+				})
+				.catch(error => {
+					setIsLoading(false);
+					setError(error.toString());
+				})
+			})
+		} else {
+			formData.append('img',product.img.files[0]);
+			formData.append('name', product.name);
+			formData.append('price', product.price.toString());
+			formData.append('quantity', product.quantity.toString());
+			fetch(`${api.serverUrl}/product/${product.id}`, {
+				method: 'PUT',
+				body : formData
+			})
+			.then(res => {
+				if (res.status === 200) {
+					setIsLoading(false);
+					navigate('/');
+					return '';
+				}
+				return res.text();
+			})
+			.then(res => {
+				if (!res) return;
+				setError(res);
+			})
+			.catch(error => {
 				setIsLoading(false);
-				navigate('/');
-				return '';
-			}
-			return res.text();
-		})
-		.then(res => {
-			if (!res) return;
-			setError(res);
-		})
-		.catch(error => {
-			setIsLoading(false);
-			setError(error.toString());
-		})
-	}
-
+				setError(error.toString());
+			})
+		}
+	  }
 	return (
 		<Button
 			id="modifyProductButton"
