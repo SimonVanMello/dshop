@@ -10,28 +10,30 @@ type ProductDetailsTableProps = {
 }
 
 const ProductDetailsTable = ({product}: ProductDetailsTableProps): JSX.Element => {
-	const [name,setName] = useState(product.name)
-	const [price,setPrice] = useState(product.price)
-	const [quantity,setQuantity] = useState(product.quantity)
-	const [img,setImg] = useState(product.img)
+	const [name,setName] = useState(product.name);
+	const [price,setPrice] = useState(product.price);
+	const [quantity,setQuantity] = useState(product.quantity);
+	const [img,setImg] = useState(product.img);
 
-	product.name = name
-	product.price = price
-	product.quantity = quantity
-	product.img = img
+	product.name = name;
+	product.price = price;
+	product.quantity = quantity;
+	product.img = img;
 	
-	function preview(e: React.ChangeEvent<HTMLInputElement>){
+	function preview(){
 		var input = document.getElementById('inputImage') as HTMLInputElement;
 		if (input.files && input.files[0]) {   
             var reader = new FileReader();           
-            reader.onload = function(e) {              
-                var preview = document.getElementById('ProductDetailsTableImg');
-                preview.src = e.target.result;
+            reader.onload = function(e) {       
+				if (e.target == null) return;    
+                var preview = document.getElementById('ProductDetailsTableImg') as HTMLImageElement;
+                preview.src = e.target.result as string;
 				setImg(input)
             };
             reader.readAsDataURL(input.files[0]);
 		}
 	}
+
 	return (
 		<div style={{width: "100%"}}>
 			<input type="file" id="inputImage" accept="image/*" onChange={preview}/>
