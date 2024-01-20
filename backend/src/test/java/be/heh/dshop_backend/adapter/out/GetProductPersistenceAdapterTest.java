@@ -11,16 +11,13 @@ import org.springframework.context.annotation.Import;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@DataJdbcTest
-@Import({GetProductPersistenceAdapter.class})
 public class GetProductPersistenceAdapterTest {
-    @Autowired
-    private GetProductPersistenceAdapter getProductPersistenceAdapter;
-    @Autowired
-    private GetProductRepository getProductRepository;
 
     @Test
     public void getProductShouldReturnProductFromGetProductRepository(){
+        final GetProductRepository getProductRepository = mock(GetProductRepository.class);
+        final GetProductPersistenceAdapter getProductPersistenceAdapter = new GetProductPersistenceAdapter(getProductRepository);
+
         final int id = 1;
         Product product = new Product(
                 1,
