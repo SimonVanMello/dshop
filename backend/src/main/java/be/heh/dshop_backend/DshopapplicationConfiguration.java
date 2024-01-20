@@ -31,12 +31,14 @@ public class DshopapplicationConfiguration {
     public ProductManagementUseCase getProductManagementUseCase(
             ProductManagementPersistenceOut productManagementPersistenceOut,
             ProductManagementCloudinaryOut productManagementCloudinaryOut,
-            GetProductsUseCase getProductsUseCase
+            GetProductsUseCase getProductsUseCase,
+            GetProductUseCase getProductUseCase
     ){
         return new ProductManagementService(
             productManagementPersistenceOut,
             productManagementCloudinaryOut,
-            getProductsUseCase
+            getProductsUseCase,
+            getProductUseCase
         );
     }
 

@@ -1,7 +1,5 @@
 package be.heh.dshop_backend.core.domain.service;
 
-import be.heh.dshop_backend.adapter.out.persistence.GetProductPersistenceAdapter;
-import be.heh.dshop_backend.adapter.out.persistence.GetProductRepository;
 import be.heh.dshop_backend.core.domain.model.Product;
 import be.heh.dshop_backend.core.port.in.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
@@ -13,15 +11,18 @@ import java.util.Objects;
 public class ProductManagementService implements ProductManagementUseCase {
     private final ProductManagementPersistenceOut productManagementPersistenceOut;
     private final ProductManagementCloudinaryOut productManagementCloudinaryOut;
+    private final GetProductsUseCase getProductsUseCase;
     private final GetProductUseCase getProductUseCase;
 
     public ProductManagementService(
             ProductManagementPersistenceOut productManagementPersistenceOut,
             ProductManagementCloudinaryOut productManagementCloudinaryOut,
+            GetProductsUseCase getProductsUseCase,
             GetProductUseCase getProductUseCase
     ){
         this.productManagementPersistenceOut = productManagementPersistenceOut;
         this.productManagementCloudinaryOut = productManagementCloudinaryOut;
+        this.getProductsUseCase = getProductsUseCase;
         this.getProductUseCase = getProductUseCase;
     }
 
@@ -50,6 +51,7 @@ public class ProductManagementService implements ProductManagementUseCase {
     @Override
     public void modifyProduct(ProductManagementModifyCommand command) throws Exception {
         try {
+            // ??
             Product oldProduct = getProductUseCase.getProduct(command.getId());
         }
         catch (Exception e){
