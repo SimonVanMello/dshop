@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
 @WebAdapter
 @RestController
@@ -61,7 +60,6 @@ public class ProductManagementController {
     @PutMapping(path={"/product/{id}", "/product/{id}/"}, consumes="multipart/form-data", produces="application/json")
     @ResponseBody
     public ResponseEntity<String> modifyProduct(
-
             @PathVariable int id,
             @RequestParam(value="img") MultipartFile img,
             @RequestParam(value="name") String name,
