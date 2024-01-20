@@ -34,4 +34,15 @@ public class ProductManagementRepository {
         final String query = "DELETE FROM Products WHERE id=?";
         this.jdbc.update(query, id);
     }
+
+    public void modifyProduct(Product product){
+        final String query = "UPDATE Products SET name = ?, price = ?, quantity = ?, img = ? WHERE id = ?";
+        this.jdbc.update(query,
+                product.getName(),
+                product.getPrice(),
+                product.getQuantity(),
+                product.getImgUrl(),
+                product.getId()
+        );
+    }
 }

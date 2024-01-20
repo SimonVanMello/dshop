@@ -1,6 +1,7 @@
 package be.heh.dshop_backend.adapter.out.cloudinary;
 
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
+import be.heh.dshop_backend.core.port.in.ProductManagementModifyCommand;
 import com.cloudinary.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
 import com.cloudinary.utils.ObjectUtils;
@@ -19,6 +20,19 @@ public class ProductManagementCloudinaryAdapter implements ProductManagementClou
 
     @Override
     public String saveImage(ProductManagementAddCommand command){
+        try{
+            Map uploadResult = this.cloudinary.uploader().upload(command.getImage(), ObjectUtils.asMap(
+                    "public_id", DigestUtils.md5Hex(command.getName()).toUpperCase(),
+                    "folder", "dshop/products"
+            ));
+            return uploadResult.get("secure_url").toString();
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public String modifyImage(ProductManagementModifyCommand command){
         try{
             Map uploadResult = this.cloudinary.uploader().upload(command.getImage(), ObjectUtils.asMap(
                     "public_id", DigestUtils.md5Hex(command.getName()).toUpperCase(),
