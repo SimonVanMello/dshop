@@ -30,7 +30,6 @@ const AddProductForm = (): JSX.Element => {
         formData.delete("img");
         const imgInput: HTMLInputElement = document.getElementById("AddProductForm.img") as HTMLInputElement;
         if (imgInput.files != null){
-
             formData.append("img", imgInput.files[0]);
         }
 		setValidated(true);

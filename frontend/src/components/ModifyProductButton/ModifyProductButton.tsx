@@ -18,44 +18,19 @@ const ModifyProductButton = ({ product, setError }: ModifyProductButtonProps): J
 
 	const navigate = useNavigate();
 
-	function handleClick() {
+	async function handleClick() {
 		setIsLoading(true);
 		const formData = new FormData();
+
 		if (product.img === null || product.img === undefined){
-			fetch(product.imgUrl)
-			.then((response) => {
-				if (!response.ok) {
+			// Get image blob
+			const response = await fetch(product.imgUrl);
+			if (!response.ok) {
 				throw new Error(`Erreur de chargement de l'image: ${response.status}`);
-				}
-				return response.blob();
-			}).then((responseBlob)=>{
-				formData.append('img',responseBlob);
-				formData.append('name', product.name);
-				formData.append('price', product.price.toString());
-				formData.append('quantity', product.quantity.toString());
-				fetch(`${api.serverUrl}/product/${product.id}`, {
-					method: 'PUT',
-					body : formData
-				})
-				.then(res => {
-					if (res.status === 200) {
-						setIsLoading(false);
-						navigate('/');
-						return '';
-					}
-					return res.text();
-				})
-				.then(res => {
-					if (!res) return;
-					setError(res);
-				})
-				.catch(error => {
-					setIsLoading(false);
-					setError(error.toString());
-				})
-			})
-		} else {
-			formData.append('img',product.img.files[0]);
+			}
+			const responseBlob = await response.blob();
+
+			formData.append('img', responseBlob);
 			formData.append('name', product.name);
 			formData.append('price', product.price.toString());
 			formData.append('quantity', product.quantity.toString());
@@ -64,7 +39,7 @@ const ModifyProductButton = ({ product, setError }: ModifyProductButtonProps): J
 				body : formData
 			})
 			.then(res => {
-				if (res.status === 200) {
+				if (res.status === 201) {
 					setIsLoading(false);
 					navigate('/');
 					return '';
@@ -73,6 +48,34 @@ const ModifyProductButton = ({ product, setError }: ModifyProductButtonProps): J
 			})
 			.then(res => {
 				if (!res) return;
+				setIsLoading(false);
+				setError(res);
+			})
+			.catch(error => {
+				setIsLoading(false);
+				setError(error.toString());
+			})
+		} else {
+			// @ts-ignore
+			formData.append('img', product.img.files[0]);
+			formData.append('name', product.name);
+			formData.append('price', product.price.toString());
+			formData.append('quantity', product.quantity.toString());
+			fetch(`${api.serverUrl}/product/${product.id}`, {
+				method: 'PUT',
+				body : formData
+			})
+			.then(res => {
+				if (res.status === 201) {
+					setIsLoading(false);
+					navigate('/');
+					return '';
+				}
+				return res.text();
+			})
+			.then(res => {
+				if (!res) return;
+				setIsLoading(false);
 				setError(res);
 			})
 			.catch(error => {
@@ -80,7 +83,8 @@ const ModifyProductButton = ({ product, setError }: ModifyProductButtonProps): J
 				setError(error.toString());
 			})
 		}
-	  }
+	}
+
 	return (
 		<Button
 			id="modifyProductButton"
