@@ -42,7 +42,7 @@ public class ProductManagementServiceTest {
         when(command.getQuantity()).thenReturn(1);
         when(command.getImage()).thenReturn("fakeImage".getBytes());
 
-        Product p = pms.addProduct(command);
+        pms.addProduct(command);
         verify(productManagementCloudinaryOutMock).saveImage(command);
     }
 
