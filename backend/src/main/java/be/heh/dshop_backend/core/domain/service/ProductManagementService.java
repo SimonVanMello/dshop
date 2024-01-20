@@ -51,8 +51,8 @@ public class ProductManagementService implements ProductManagementUseCase {
     @Override
     public void modifyProduct(ProductManagementModifyCommand command) throws Exception {
         try {
-            // ??
-            Product oldProduct = getProductUseCase.getProduct(command.getId());
+            // Check if the product exist
+            getProductUseCase.getProduct(command.getId());
         }
         catch (Exception e){
             throw new Exception("this product doesn't exist");
