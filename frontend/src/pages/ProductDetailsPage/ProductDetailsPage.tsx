@@ -12,6 +12,7 @@ import DeleteProductButton from '../../components/DeleteProductButton/DeleteProd
 import ProductDetailsTable from '../../components/ProductDetailsTable/ProductDetailsTable';
 
 import './ProductDetailsPage.css';
+import ModifyProductButton from '../../components/ModifyProductButton/ModifyProductButton.js';
 
 const ProductDetailsPage = (): JSX.Element => {
 	const { id } = useParams();
@@ -67,6 +68,7 @@ const ProductDetailsPage = (): JSX.Element => {
 			<div id="productDetailsPageContainer">
 				<div id="productDetailsPageInnerContainer">
 					<ProductDetailsTable product={product} />
+					{product.id && <ModifyProductButton product={product} setError={setError} />}
 					{product.id && <DeleteProductButton id={product.id} setError={setError} />}
 				</div>
 			</div>
