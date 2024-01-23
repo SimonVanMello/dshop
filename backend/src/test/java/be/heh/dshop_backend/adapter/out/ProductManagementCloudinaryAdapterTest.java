@@ -38,7 +38,27 @@ public class ProductManagementCloudinaryAdapterTest {
     @Test
     public void validImageShouldBeUploadedOnCloudinary(){
         ProductManagementCloudinaryAdapter productManagementCloudinaryAdapter = new ProductManagementCloudinaryAdapter();
-        // TODO: find a way to make this test
+        // Start by downloading an image from the internet
+        byte[] imageBytes = null;
+        try{
+            String imageUrl = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+            InputStream in = new URL(imageUrl).openStream();
+            Path outputPath = Files.createTempFile("downloaded", ".png");
+            Files.copy(in, outputPath, StandardCopyOption.REPLACE_EXISTING);
+            imageBytes = Files.readAllBytes(outputPath);
+        } catch (Exception e){
+            fail("Failed to download image");
+        }
+
+        // Then upload it
+        ProductManagementAddCommand command = mock(ProductManagementAddCommand.class);
+        when(command.getName()).thenReturn("validImageShouldBeUploadedOnCloudinaryTest");
+        when(command.getPrice()).thenReturn(10.5);
+        when(command.getQuantity()).thenReturn(1);
+        when(command.getImage()).thenReturn(imageBytes);
+
+        String result = productManagementCloudinaryAdapter.saveImage(command);
+        assertTrue(result.contains("https://res.cloudinary.com"));
     }
 
     @Test
@@ -66,11 +86,5 @@ public class ProductManagementCloudinaryAdapterTest {
         // Then delete it
         String result = productManagementCloudinaryAdapter.deleteImage(productName);
         assertEquals("ok", result);
-    }
-
-    @Test
-    public void deletingNonExistingImageShouldReturnNotFound(){
-        ProductManagementCloudinaryAdapter productManagementCloudinaryAdapter = new ProductManagementCloudinaryAdapter();
-        // TODO: find a way to make this test
     }
 }
