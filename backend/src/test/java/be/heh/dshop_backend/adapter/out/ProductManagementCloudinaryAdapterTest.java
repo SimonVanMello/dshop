@@ -4,6 +4,12 @@ import be.heh.dshop_backend.adapter.out.cloudinary.ProductManagementCloudinaryAd
 import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -38,7 +44,28 @@ public class ProductManagementCloudinaryAdapterTest {
     @Test
     public void deletingExistingImageShouldReturnOK(){
         ProductManagementCloudinaryAdapter productManagementCloudinaryAdapter = new ProductManagementCloudinaryAdapter();
-        // TODO: find a way to make this test
+        final String productName = "uniqueProductName";
+        // Start by uploading an image
+        try{
+            String imageUrl = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";
+            InputStream in = new URL(imageUrl).openStream();
+            Path outputPath = Files.createTempFile("downloaded", ".png");
+            Files.copy(in, outputPath, StandardCopyOption.REPLACE_EXISTING);
+            byte[] imageBytes = Files.readAllBytes(outputPath);
+
+            ProductManagementAddCommand command = mock(ProductManagementAddCommand.class);
+            when(command.getName()).thenReturn(productName);
+            when(command.getPrice()).thenReturn(10.5);
+            when(command.getQuantity()).thenReturn(1);
+            when(command.getImage()).thenReturn(imageBytes);
+            productManagementCloudinaryAdapter.saveImage(command);
+        } catch (Exception e){
+            fail("Failed to upload image");
+        }
+
+        // Then delete it
+        String result = productManagementCloudinaryAdapter.deleteImage(productName);
+        assertEquals("ok", result);
     }
 
     @Test

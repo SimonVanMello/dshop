@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class GetProductPersistenceAdapterTest {
-
     @Test
     public void getProductShouldReturnProductFromGetProductRepository(){
         final GetProductRepository getProductRepository = mock(GetProductRepository.class);
