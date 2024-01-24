@@ -49,7 +49,7 @@ public class ProductManagementService implements ProductManagementUseCase {
     }
 
     @Override
-    public void modifyProduct(ProductManagementModifyCommand command) throws Exception {
+    public Product modifyProduct(ProductManagementModifyCommand command) throws Exception {
         try {
             // Check if the product exist
             getProductUseCase.getProduct(command.getId());
@@ -68,6 +68,7 @@ public class ProductManagementService implements ProductManagementUseCase {
                 command.getImage()
         );
         this.productManagementPersistenceOut.modifyProduct(product);
+        return product;
     }
 
     @Override

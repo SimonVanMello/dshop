@@ -1,13 +1,13 @@
 package be.heh.dshop_backend.core.domain.service;
 
 import be.heh.dshop_backend.core.domain.model.Product;
-import be.heh.dshop_backend.core.port.in.GetProductUseCase;
-import be.heh.dshop_backend.core.port.in.GetProductsUseCase;
-import be.heh.dshop_backend.core.port.in.ProductManagementAddCommand;
-import be.heh.dshop_backend.core.port.in.ProductManagementRemoveCommand;
+import be.heh.dshop_backend.core.port.in.*;
 import be.heh.dshop_backend.core.port.out.ProductManagementCloudinaryOut;
 import be.heh.dshop_backend.core.port.out.ProductManagementPersistenceOut;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 public class ProductManagementServiceTest {
@@ -67,5 +67,36 @@ public class ProductManagementServiceTest {
 
         pms.removeProduct(command);
         verify(productManagementCloudinaryOutMock).deleteImage(fakeImageName);
+    }
+
+    @Test
+    public void modifyProductShouldCallModifyProductInProductManagementPersistenceOut(){
+        ProductManagementModifyCommand command = mock(ProductManagementModifyCommand.class);
+        when(command.getId()).thenReturn(1);
+        when(command.getName()).thenReturn("productName");
+        when(command.getPrice()).thenReturn(10.5);
+        when(command.getQuantity()).thenReturn(1);
+        when(command.getImage()).thenReturn("fakeImage".getBytes());
+        try{
+            Product p = pms.modifyProduct(command);
+            verify(productManagementPersistenceOutMock).modifyProduct(p);
+        } catch (Exception e){
+            fail(e.toString());
+        }
+    }
+    @Test
+    public void modifyProductShouldCallModifyImageInProductManagementCloudinaryOut(){
+        ProductManagementModifyCommand command = mock(ProductManagementModifyCommand.class);
+        when(command.getId()).thenReturn(0);
+        when(command.getName()).thenReturn("productName");
+        when(command.getPrice()).thenReturn(10.5);
+        when(command.getQuantity()).thenReturn(1);
+        when(command.getImage()).thenReturn("fakeImage".getBytes());
+        try{
+            pms.modifyProduct(command);
+            verify(productManagementCloudinaryOutMock).modifyImage(command);
+        } catch (Exception e){
+            fail(e.toString());
+        }
     }
 }
