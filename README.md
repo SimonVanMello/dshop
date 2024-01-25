@@ -20,3 +20,13 @@ This project employs a robust and modular hexagonal architecture, utilizing Reac
 - **Database**: MariaDB
 - **Authentication**: Google Sign-In
 - **Image CDN**: Cloudinary
+
+---
+
+# 🚧 Encountered Problems
+
+During the development of the Minecraft Online Shop, we encountered the following challenges:
+
+1. **Image Modification on Cloudinary**: We faced difficulties while attempting to modify existing images on Cloudinary. Resolving this issue required thorough investigation and collaboration.
+
+2. **Test Selection Difficulty**: Determining the set of tests that were necessary and meaningful posed a challenge during the development process. Identifying which tests were essential for ensuring the robustness of our application required careful consideration and iteration.
