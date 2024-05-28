@@ -1,3 +1,4 @@
+# ⚠️ THIS IS A SCHOOL PROJECT. PLEASE DONT CARE. ⚠️
 # 🛒 Minecraft Online Shop
 
 Welcome to the Minecraft Online Shop, your one-stop destination for buying Minecraft items and accessories!
